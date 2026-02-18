@@ -39,7 +39,7 @@ menuButton.addEventListener('click', () => {
 });
 
 // Knapp för konfetti
-let konfButton = document.getElementById("button");
+let konfButton = document.querySelector(".button");
 let confetti = document.querySelectorAll(".confetti");
 
 konfButton.addEventListener("click", () => {
@@ -49,4 +49,13 @@ konfButton.addEventListener("click", () => {
         el.offsetHeight;
         el.style.animation = null;
     });
+});
+
+// Knapp åker iväg och kommer tillbaka
+let swipeButton = document.querySelector(".button-2");
+
+swipeButton.addEventListener("click", () => {
+  swipeButton.classList.remove("move");
+  void swipeButton.offsetWidth;
+  swipeButton.classList.add("move");
 });

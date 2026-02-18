@@ -32,7 +32,7 @@
 }
 
 // Knapp och konfetti
-#button {
+.button {
     padding: 1rem 2rem;
     border: none;
     font-size: 1.25rem;
@@ -42,9 +42,10 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.4s ease;
+    margin-bottom: 4vh;
 }
 
-#button:hover {
+.button:hover {
     background-color: #00c3ff;
 }
 
@@ -95,3 +96,18 @@
 .confetti:nth-child(14) { left: 54%; background: #7a00ff; animation-duration: 3.9s; animation-delay: 2.2s; }
 .confetti:nth-child(15) { left: 58%; background: #00c3ff; animation-duration: 5.2s; animation-delay: 1.9s; }
 .confetti:nth-child(16) { left: 62%; background: #7a00ff; animation-duration: 7.1s; animation-delay: 0.4s; }
+
+// Knapp som åker iväg
+.button-2 {
+  @extend .button;
+}
+
+.button-2.move {
+  animation: moveAway 4s ease-in-out;
+}
+
+@keyframes moveAway {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(30vw); }
+  100% { transform: translateX(0); }
+}
