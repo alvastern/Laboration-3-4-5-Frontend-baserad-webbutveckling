@@ -37,3 +37,25 @@ let navBar = document.getElementById('nav-header');
 menuButton.addEventListener('click', () => {
     navBar.classList.toggle("show");
 });
+
+// Knapp för konfetti
+let konfButton = document.querySelector(".button");
+let confetti = document.querySelectorAll(".confetti");
+
+konfButton.addEventListener("click", () => {
+    confetti.forEach(el => {
+        el.classList.add("show");
+        el.style.animation = "none";
+        el.offsetHeight;
+        el.style.animation = null;
+    });
+});
+
+// Knapp åker iväg och kommer tillbaka
+let swipeButton = document.querySelector(".button-2");
+
+swipeButton.addEventListener("click", () => {
+  swipeButton.classList.remove("move");
+  void swipeButton.offsetWidth;
+  swipeButton.classList.add("move");
+});
