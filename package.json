@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs": "jsdoc -r src/js -d docs"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.5",
     "sass": "^1.97.3",
     "vite": "^7.3.1"
   },
