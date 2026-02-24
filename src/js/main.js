@@ -83,7 +83,6 @@ if (swipeButton) {
  * @async
  * @returns {Promise<Ansokan[]>} - Promise som returnerar en array med ansökningar
  */
-
 let ansokningar = [];
 
 async function getAnsokningar() {
@@ -103,8 +102,12 @@ async function getAnsokningar() {
 }
 
 
-
-// Fuktion som skapar stapeldiagram
+/**
+ * Funktion som skapar ett stapeldiagram med de 6 mest ansökta kurserna på Mittuniversitetet
+ * 
+ * @param {Ansokan[]} data - En array med ansökningar
+ * @returns {void} - Inget värde returneras
+ */
 function createStapelchart(data) {
     const canvas = document.getElementById("stapelChart")
     if (!canvas) return;
@@ -141,7 +144,13 @@ function createStapelchart(data) {
     });
 }
 
-// Funktion som skapar cirkeldiagram
+
+/**
+ * Funktion som tar fram cirkeldiagram för de 6 mest ansökta programmen på Mittuniversitetet
+ * 
+ * @param {Ansokan[]} data - En array med ansökningar
+ * @returns {void} - Returnerar inget värde
+ */
 function createCircleChart(data) {
     const canvasCircle = document.getElementById("circleChart")
     if (!canvasCircle) return;
@@ -178,6 +187,13 @@ function createCircleChart(data) {
     });
 }
 
+
+/**
+ * Initerar funktionerna för att visa tabellerna
+ * 
+ * @async
+ * @returns {Promise<void>} - Returnerar en promise utan värde
+ */
 async function init() {
     ansokningar = await getAnsokningar();
     createStapelchart(ansokningar);
