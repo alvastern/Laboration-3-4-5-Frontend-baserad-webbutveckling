@@ -203,3 +203,4 @@ async function init() {
 init();
 
 
+// Hämtar element från DOM + eventlyssnare på knappen
