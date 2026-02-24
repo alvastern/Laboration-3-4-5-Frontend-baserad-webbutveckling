@@ -17,19 +17,19 @@ if (themeSwitch) {
         document.body.classList.remove("dark");
         themeSwitch.checked = false;
     }
-}
 
-themeSwitch.addEventListener('change', () => {
-    if (themeSwitch.checked) {
-        document.body.classList.add("dark");
-        document.body.classList.remove("light");
-        localStorage.setItem("theme", "dark");
-    } else {
-        document.body.classList.add("light");
-        document.body.classList.remove("dark");
-        localStorage.setItem("theme", "light")
-    }
-});
+    themeSwitch.addEventListener('change', () => {
+        if (themeSwitch.checked) {
+            document.body.classList.add("dark");
+            document.body.classList.remove("light");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.body.classList.add("light");
+            document.body.classList.remove("dark");
+            localStorage.setItem("theme", "light")
+        }
+    });
+}
 
 // Meny för mindre enheter
 let menuButton = document.getElementById('menu-nav');
@@ -68,7 +68,22 @@ if (swipeButton) {
     });
 }
 
-// Skapande av stapeldiagram
+
+/**
+ * Definierar datattyp och properties för funktionen
+ * @typedef {Object} Ansokan
+ * @property {string} name - Namn på kurs eller program
+ * @property {string} type - Typ av utbildning ("Kurs" eller "Program")
+ * @property {string} applicantsTotal - Totalt antal sökande
+ */
+
+/**
+ * Hämta data från JSON-filen med async/await
+ * 
+ * @async
+ * @returns {Promise<Ansokan[]>} - Promise som returnerar en array med ansökningar
+ */
+
 let ansokningar = [];
 
 async function getAnsokningar() {
@@ -86,6 +101,8 @@ async function getAnsokningar() {
         return [];
     }
 }
+
+
 
 // Fuktion som skapar stapeldiagram
 function createStapelchart(data) {
@@ -162,7 +179,6 @@ function createCircleChart(data) {
 }
 
 async function init() {
-    console.log("init körs ✅");
     ansokningar = await getAnsokningar();
     createStapelchart(ansokningar);
     createCircleChart(ansokningar);

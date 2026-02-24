@@ -1,10 +1,15 @@
-#stapelChart {
-  width: 100%;;
-  height: 500px;
+.chart-box--bar article {
+  height: 420px;
   margin-bottom: 7.5vh;
 }
 
-#circleChart {
+.chart-box--pie article {
+  height: 380px;
   margin-bottom: 7.5vh;
+}
+
+.chart-box canvas {
   width: 100%;
+  height: 100%;
+  display: block;
 }
