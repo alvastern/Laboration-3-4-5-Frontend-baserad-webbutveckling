@@ -99,13 +99,13 @@ function createStapelchart(data) {
     .filter(item => item.type === "Kurs")
     .map(item => ({
         name: item.name,
-        total: parseInt(item.applicantsTotal, 10) || 0
+        total: parseInt(String(item.applicantsTotal).trim(), 10) || 0
     }))
     .sort((a, b) => b.total - a.total)
     .slice(0, 6);
 
-    const stapelLabels = data.slice(0, 6).map(item => item.name);
-    const stapelValues = data.slice(0, 6).map(item => item.total);
+    const stapelLabels = topKurser.map(item => item.name);
+    const stapelValues = topKurser.map(item => item.total);
 
     new Chart(canvas, {
         type: "bar",
@@ -124,10 +124,48 @@ function createStapelchart(data) {
     });
 }
 
+// Funktion som skapar cirkeldiagram
+function createCircleChart(data) {
+    const canvasCircle = document.getElementById("circleChart")
+    if (!canvasCircle) return;
+
+    const existingChart = Chart.getChart(canvasCircle);
+    if (existingChart) existingChart.destroy();
+
+    const topProgram = data
+    .filter(item => item.type === "Program")
+    .map(item => ({
+        name: item.name,
+        total: parseInt(String(item.applicantsTotal).trim(), 10) || 0
+    }))
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 5);
+    
+    const circleLabels = topProgram.map(item => item.name);
+    const circleValues = topProgram.map(item => item.total);
+
+    new Chart(canvasCircle, {
+        type: "pie",
+        data: {
+            labels: circleLabels,
+            datasets: [{
+                label: "Antal sökande",
+                data: circleValues
+            },],
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        },
+    });
+}
+
 async function init() {
     console.log("init körs ✅");
     ansokningar = await getAnsokningar();
     createStapelchart(ansokningar);
+    createCircleChart(ansokningar);
 }
 
 init();
