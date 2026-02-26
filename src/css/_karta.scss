@@ -1,3 +1,27 @@
+@use "./base" as *;
+
 #map {
     height: 500px;
+    width: 100%;
+}
+
+#mapKnapp {
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: $rubrik-color;
+    font-family: $primary-font;
+    font-weight: bold;
+    color: white;
+    font-size: 1rem;
+}
+
+#user-input {
+    padding: 0.5rem 1rem;
+    margin: 2rem;
+    border: 0.25px black solid;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+    font-family: $primary-font;
 }

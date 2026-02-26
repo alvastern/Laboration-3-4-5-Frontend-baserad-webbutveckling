@@ -203,4 +203,74 @@ async function init() {
 init();
 
 
-// Hämtar element från DOM + eventlyssnare på knappen
+// ===== KARTA (Nominatim + OSM iframe) =====
+const mapForm = document.querySelector("main form");
+const mapButton = document.getElementById("mapKnapp");
+const userInput = document.getElementById("user-input");
+const mapDiv = document.getElementById("map");
+const errorP = document.getElementById("felmeddelande");
+
+// Kör bara kartlogik om elementen finns på sidan
+if (mapForm && userInput && mapDiv && errorP) {
+  mapForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorP.textContent = "";
+
+    const query = userInput.value.trim();
+    if (!query) {
+      errorP.textContent = "Skriv in en plats att söka på.";
+      return;
+    }
+
+    try {
+      const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(query);
+
+      const response = await fetch(url, {
+        headers: {
+          "Accept-Language": "sv",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Kunde inte hämta platsdata.");
+      }
+
+      const data = await response.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        throw new Error("Ingen plats hittades. Testa en annan sökning.");
+      }
+
+      const lat = Number(data[0].lat);
+      const lon = Number(data[0].lon);
+
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+        throw new Error("Fick ogiltiga koordinater från API:t.");
+      }
+      
+      const zoom = 13;
+      const iframeSrc =
+        "https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=" +
+        lat +
+        "%2C" +
+        lon +
+        "&zoom=" +
+        zoom;
+
+      mapDiv.innerHTML = `
+        <iframe
+          width="100%"
+          height="100%"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          src="${iframeSrc}">
+        </iframe>
+      `;
+    } catch (err) {
+      errorP.textContent = err.message;
+      console.error(err);
+    }
+  });
+}
