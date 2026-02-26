@@ -212,7 +212,13 @@ const errorP = document.getElementById("felmeddelande");
 
 // Kör bara kartlogik om elementen finns på sidan
 if (mapForm && userInput && mapDiv && errorP) {
-  mapForm.addEventListener("submit", async (e) => {
+
+    const defaultLat = 62.3908;
+    const defaultLon = 17.3069;
+    const defaultZoom = 6;
+    mapDiv.innerHTML = `<iframe width="100%" height="100%" frameborder="0" scrolling="no" src="https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=${defaultLat}%2C${defaultLon}&zoom=${defaultZoom}"></iframe>`;
+
+    mapForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     errorP.textContent = "";
 
@@ -238,36 +244,21 @@ if (mapForm && userInput && mapDiv && errorP) {
       const data = await response.json();
 
       if (!Array.isArray(data) || data.length === 0) {
-        throw new Error("Ingen plats hittades. Testa en annan sökning.");
+        throw new Error("Ingen plats hittades, testa igen.");
       }
 
       const lat = Number(data[0].lat);
       const lon = Number(data[0].lon);
 
       if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-        throw new Error("Fick ogiltiga koordinater från API:t.");
+        throw new Error("Prova igen");
       }
-      
-      const zoom = 13;
-      const iframeSrc =
-        "https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=" +
-        lat +
-        "%2C" +
-        lon +
-        "&zoom=" +
-        zoom;
 
-      mapDiv.innerHTML = `
-        <iframe
-          width="100%"
-          height="100%"
-          frameborder="0"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-          src="${iframeSrc}">
-        </iframe>
-      `;
+      const zoom = 13;
+      const iframeSrc = "https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=" + lat + "%2C" + lon + "&zoom=" + zoom;
+
+      mapDiv.innerHTML = `<iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${iframeSrc}"></iframe>`;
+
     } catch (err) {
       errorP.textContent = err.message;
       console.error(err);
