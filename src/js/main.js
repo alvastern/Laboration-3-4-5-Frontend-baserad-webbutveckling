@@ -203,14 +203,13 @@ async function init() {
 init();
 
 
-// ===== KARTA (Nominatim + OSM iframe) =====
+// Funktion där användaren kan söka efter en plats som då visas på en karta
 const mapForm = document.querySelector("main form");
 const mapButton = document.getElementById("mapKnapp");
 const userInput = document.getElementById("user-input");
 const mapDiv = document.getElementById("map");
 const errorP = document.getElementById("felmeddelande");
 
-// Kör bara kartlogik om elementen finns på sidan
 if (mapForm && userInput && mapDiv && errorP) {
 
     const defaultLat = 62.3908;
@@ -218,6 +217,13 @@ if (mapForm && userInput && mapDiv && errorP) {
     const defaultZoom = 6;
     mapDiv.innerHTML = `<iframe width="100%" height="100%" frameborder="0" scrolling="no" src="https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=${defaultLat}%2C${defaultLon}&zoom=${defaultZoom}"></iframe>`;
 
+    /**
+     * Hanterar inskick av formulär
+     * Söker en plats via API:n Nominatim och uppdaterar kartan med iframe
+     *
+     * @param {SubmitEvent} e - Submit-event från formuläret
+     * @returns {Promise<void>} - Returnerar en promise utan värde
+     */
     mapForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     errorP.textContent = "";
