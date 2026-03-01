@@ -76,6 +76,7 @@ if (swipeButton) {
  * @property {string} type - Typ av utbildning ("Kurs" eller "Program")
  * @property {string} applicantsTotal - Totalt antal sökande
  */
+let ansokningar = [];
 
 /**
  * Hämta data från JSON-filen med async/await
@@ -83,8 +84,6 @@ if (swipeButton) {
  * @async
  * @returns {Promise<Ansokan[]>} - Promise som returnerar en array med ansökningar
  */
-let ansokningar = [];
-
 async function getAnsokningar() {
     try {
         const response = await fetch("/ansokningar.json")
@@ -100,7 +99,6 @@ async function getAnsokningar() {
         return [];
     }
 }
-
 
 /**
  * Funktion som skapar ett stapeldiagram med de 6 mest ansökta kurserna på Mittuniversitetet
