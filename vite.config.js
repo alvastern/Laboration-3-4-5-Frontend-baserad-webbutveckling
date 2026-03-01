@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import { resolve } from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -18,4 +19,12 @@ export default defineConfig({
       },
     },
   },
+
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        { src: "docs", dest: "" }
+      ],
+    }),
+  ],
 });
